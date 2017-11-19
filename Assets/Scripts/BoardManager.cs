@@ -1,7 +1,7 @@
-﻿/*using UnityEngine;
+﻿using UnityEngine;
 using System;
-using System.Collections;       //Allows us to use Lists.
-using Random = UnityEngine.Random;
+using System.Collections.Generic;       //Allows us to use Lists.
+using Random = UnityEngine.Random;      //Tells Random to use the Unity Engine random number generator.
 
 public class BoardManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class BoardManager : MonoBehaviour
         public int minimum;
         public int maximum;
 
-        Count(int min, int max)
+        public Count(int min, int max)
         {
             minimum = min;
             maximum = max;
@@ -30,7 +30,7 @@ public class BoardManager : MonoBehaviour
     public GameObject[] outerWallTiles;
 
     private Transform boardHolder;
-    private List<Vector3>  gridPositions = new List<Vector3>;
+    private List <Vector3> gridPositions = new List <Vector3> ();
 
     void InitialiseList()
     {
@@ -53,12 +53,12 @@ public class BoardManager : MonoBehaviour
         {
             for(int y = -1; y < rows - 1; ++y)
             {
-                GameObject toInstanciate = floorTiles[Random.Range(0, floorTiles.length)];
-                if(x == -1 || x == columns || y == -1 || y == row)
+                GameObject toInstanciate = floorTiles[Random.Range(0, floorTiles.Length)];
+                if(x == -1 || x == columns || y == -1 || y == rows)
                 {
-                    toInstanciate = outerWallTiles[Random.Range(0, outerWallTiles.length)];
+                    toInstanciate = outerWallTiles[Random.Range(0, outerWallTiles.Length)];
                 }
-                GameObject instance = Instanciate(toInstanciate, new Vector3(x, y, 0f), Quaternion.Identity) as GameObject;
+                GameObject instance = Instantiate (toInstanciate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                 instance.transform.SetParent(boardHolder);
             }
         }
@@ -68,7 +68,7 @@ public class BoardManager : MonoBehaviour
     {
         int randomIndex = Random.Range(0, gridPositions.Count);
         Vector3 randomPosition = gridPositions[randomIndex];
-        gridPositions.removeAt(randomIndex);
+        gridPositions.RemoveAt(randomIndex);
         return randomPosition;
     }
 
@@ -79,8 +79,8 @@ public class BoardManager : MonoBehaviour
         for(int i = 0; i < ObjectCount; ++i)
         {
             Vector3 randomPosition  = RandomPosition();
-            GameObject tileChoice = tileArray[Random.Range(0, tileArray.length)];
-            Instanciate (tileChoice, randomPosition, Quaternion.Identity);
+            GameObject tileChoice = tileArray[Random.Range(0, tileArray.Length)];
+            Instantiate(tileChoice, randomPosition, Quaternion.identity);
         }
     }
 
@@ -91,7 +91,7 @@ public class BoardManager : MonoBehaviour
         LayoutObjectAtRandom(wallTiles, wallCount.minimum, wallCount.maximum);
         LayoutObjectAtRandom(foodTiles, foodCount.minimum, foodCount.maximum);
         int enemyCount = (int)Mathf.Log(level, 2f);
-        LayoutObjectAtRandom(enemyTiles, enemyCount.minimum, enemyCount.maximum);
-        Instanciate(exit, new Vector3(columns -1, rows - 1, 0f), Quaternion.Identity);
+        LayoutObjectAtRandom(enemyTiles, enemyCount, enemyCount);
+        Instantiate(exit, new Vector3(columns -1, rows - 1, 0f), Quaternion.identity);
     }
-}*/
+}
