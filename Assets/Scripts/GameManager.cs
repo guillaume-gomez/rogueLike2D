@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class GameManager : MonoBehaviour 
+public class GameManager : MonoBehaviour
 {
 	public static GameManager instance = null;
 	public BoardManager boardScript;
@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 		if (instance == null)
 		{
 			instance = this;
-		} else if (instance != this) 
+		} else if (instance != this)
 		{
 			Destroy(gameObject);
 		}
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 		boardScript.SetupScene(level);
 	}
 
-	void Update() 
+	void Update()
 	{
 
 	}
