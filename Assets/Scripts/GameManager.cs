@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+        enemies = new List<Enemy>();
         boardScript = GetComponent<BoardManager>();
         InitGame();
     }
@@ -67,5 +68,6 @@ public class GameManager : MonoBehaviour
             enemies[i].MoveEnemy();
             yield return new WaitForSeconds(enemies[i].moveTime);
         }
+        playerTurn = true;
     }
 }
