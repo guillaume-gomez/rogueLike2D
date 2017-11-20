@@ -6,11 +6,11 @@ public abstract class MovingObject : MonoBehaviour
 {
     public float moveTime = 0.1f;           //Time it will take object to move, in seconds.
     public LayerMask blockingLayer;         //Layer on which collision will be checked.
-    
+
     private BoxCollider2D boxCollider;      //The BoxCollider2D component attached to this object.
     private Rigidbody2D rb2D;               //The Rigidbody2D component attached to this object.
     private float inverseMoveTime;          //Used to make movement more efficient.
-    
+
     protected virtual void Start ()
     {
         boxCollider = GetComponent<BoxCollider2D>();
@@ -55,17 +55,17 @@ public abstract class MovingObject : MonoBehaviour
 
         if(hit.transform == null)
         {
-           return; 
+           return;
         }
         T hitComponent = hit.transform.GetComponent<T>();
 
         if(!canMove && hitComponent != null)
         {
-            OnCanMove(hitComponent);
+            OnCantMove(hitComponent);
         }
 
     }
 
-    protected abstract void OnCanMove<T>(T component)
+    protected abstract void OnCantMove<T>(T component)
         where T : Component;
 }
