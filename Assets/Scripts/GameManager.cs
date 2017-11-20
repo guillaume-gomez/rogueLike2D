@@ -1,14 +1,18 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    public float turnDelay = .1f;
     public static GameManager instance = null;
     public BoardManager boardScript;
     public int playerFoodPoints = 100;
     [HideInInspector] public bool playerTurn = true;
 
     private int level = 3;
+    private List<Enemy> enemies;
+    private bool enemiesMoving;
 
     void Awake()
     {
@@ -26,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     void InitGame()
     {
+        enemies.Clear();
         boardScript.SetupScene(level);
     }
 
@@ -36,6 +41,31 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if(!playerTurn || enemiesMoving)
+        {
+            return;
+        }
+        StartCoroutine(MoveEnemies());
+    }
 
+    public void AddEnemyToList(Enemy enemy)
+    {
+        enemies.Add(enemy);
+    }
+
+    IEnumerator MoveEnemies()
+    {
+        enemiesMoving = true;
+        yield return new WaitForSeconds(turnDelay);
+        if(enemies.Count == 0)
+        {
+            yield return new WaitForSeconds(turnDelay);
+        }
+
+        for(int i = 0; i < enemies.Count; ++i)
+        {
+            enemies[i].MoveEnemy();
+            yield return new WaitForSeconds(enemies[i].moveTime);
+        }
     }
 }
