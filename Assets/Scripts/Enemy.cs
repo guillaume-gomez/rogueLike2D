@@ -48,7 +48,7 @@ public class Enemy : MovingObject
     {
         Player hitPlayer = component as Player;
         hitPlayer.LoseFood(playerDamage);
-        animator.SetTrigger("enemyAttack");
+        animator.SetTrigger("EnemyAttack");
     }
 }
 
