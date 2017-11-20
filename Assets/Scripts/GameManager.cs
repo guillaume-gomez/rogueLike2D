@@ -3,32 +3,39 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
-	public static GameManager instance = null;
-	public BoardManager boardScript;
+    public static GameManager instance = null;
+    public BoardManager boardScript;
+    public int playerFoodPoints = 100;
+    [HideInInspector] public bool playerTurn = true;
 
-	private int level = 3;
+    private int level = 3;
 
-	void Awake()
-	{
-		if (instance == null)
-		{
-			instance = this;
-		} else if (instance != this)
-		{
-			Destroy(gameObject);
-		}
-		DontDestroyOnLoad(gameObject);
-		boardScript = GetComponent<BoardManager>();
-		InitGame();
-	}
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        } else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
+        boardScript = GetComponent<BoardManager>();
+        InitGame();
+    }
 
-	void InitGame()
-	{
-		boardScript.SetupScene(level);
-	}
+    void InitGame()
+    {
+        boardScript.SetupScene(level);
+    }
 
-	void Update()
-	{
+    public void GameOver()
+    {
+        enabled = false;
+    }
 
-	}
+    void Update()
+    {
+
+    }
 }
