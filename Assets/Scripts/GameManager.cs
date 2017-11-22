@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if(!playerTurn || enemiesMoving)
+        if(playerTurn || enemiesMoving)
         {
             return;
         }
@@ -62,12 +62,12 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(turnDelay);
         }
-
         for(int i = 0; i < enemies.Count; ++i)
         {
             enemies[i].MoveEnemy();
             yield return new WaitForSeconds(enemies[i].moveTime);
         }
         playerTurn = true;
+        enemiesMoving = false;
     }
 }
